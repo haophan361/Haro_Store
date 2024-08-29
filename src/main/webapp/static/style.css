@@ -1,0 +1,25 @@
+.form-container 
+{
+    background-color: #303030; /* Nền đen */
+    padding: 20px;           /* Khoảng cách bên trong */
+    margin :60px;
+    border-radius: 10px;     /* Bo tròn các góc */
+    color: white;            /* Màu chữ trắng */
+}
+.form-outline .form-control 
+{
+    color: white; /* Màu chữ cho thẻ input */
+    background-color: transparent; /* Nền trong suốt để chữ trắng nổi bật */
+}
+.card-registration .select-input.form-control[readonly]:not([disabled]) 
+{
+	background-color: #303030;
+	font-size: 1rem;
+	line-height: 2.15;
+	padding-left: .75em;
+	padding-right: .75em;
+}
+.card-registration .select-arrow 
+{
+	top: 13px;
+}
