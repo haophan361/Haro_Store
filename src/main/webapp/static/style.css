@@ -1,25 +1,58 @@
-.form-container 
-{
-    background-color: #303030; /* Nền đen */
-    padding: 20px;           /* Khoảng cách bên trong */
-    margin :60px;
-    border-radius: 10px;     /* Bo tròn các góc */
-    color: white;            /* Màu chữ trắng */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #303030; /* Đặt nền đen cho toàn bộ trang */
 }
-.form-outline .form-control 
-{
+
+.form-container {
+    background-color: #303030; /* Nền đen */
+    color: white;              /* Màu chữ trắng */
+    width: 100%;               /* Chiếm toàn bộ chiều rộng */
+    height: 100vh;             /* Chiều cao chiếm toàn bộ màn hình */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;             /* Khoảng cách bên trong */
+}
+
+.form-outline .form-control {
     color: white; /* Màu chữ cho thẻ input */
     background-color: transparent; /* Nền trong suốt để chữ trắng nổi bật */
+    border: 1px solid #666; /* Viền input */
 }
-.card-registration .select-input.form-control[readonly]:not([disabled]) 
-{
-	background-color: #303030;
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+	background-color: #303030; /* Nền đen cho select */
 	font-size: 1rem;
 	line-height: 2.15;
 	padding-left: .75em;
 	padding-right: .75em;
+	color: white; /* Màu chữ trắng cho select */
 }
-.card-registration .select-arrow 
-{
+
+.card-registration .select-arrow {
 	top: 13px;
+}
+
+.btn-primary {
+  background-color: blue; /* Màu xanh cho nút */
+  border-color: blue; /* Màu viền cho nút */
+}
+
+.btn-primary:hover {
+  background-color: darkblue; /* Màu xanh đậm hơn khi hover */
+  border-color: darkblue;
+}
+
+.text-center a {
+  color: blue; /* Màu chữ xanh cho liên kết */
+  text-decoration: none; /* Bỏ gạch chân */
+}
+
+.text-center a:hover {
+  text-decoration: underline; /* Gạch chân khi hover */
 }

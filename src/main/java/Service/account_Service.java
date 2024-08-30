@@ -21,12 +21,24 @@ public class account_Service
 		account_dao=new Account_dao();
 		String cusName=request.getParameter("name");
 		String email=request.getParameter("email");
-		String address=request.getParameter("address");
+		String city=request.getParameter("city");
+		String district=request.getParameter("district");
+		String ward=request.getParameter("ward");
+		String houseNo=request.getParameter("houseNo");
+		String address=city+" "+district+" "+ward+" "+houseNo;
 		String password=request.getParameter("password");
 		String phone=request.getParameter("phone");
+        System.out.println("Họ và tên: " + cusName);
+        System.out.println("Tỉnh/Thành phố: " + city);
+        System.out.println("Quận/Huyện: " + district);
+        System.out.println("Phường/Xã: " + ward);
+        System.out.println("Số nhà, Tên đường: " + houseNo);
+        System.out.println("Số điện thoại: " + phone);
+        System.out.println("Email: " + email);
 		Customers customer=new Customers(cusName,email,address,phone);
 		Accounts account=new Accounts(email,password);
 		account_dao.insertCustomer(customer,account);
+		request.getRequestDispatcher("views/web/login.jsp").forward(request, response);
 	}
 	public void changePassword(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
 	{
@@ -42,6 +54,7 @@ public class account_Service
 		String password=request.getParameter("password");
 		Accounts account=new Accounts(email,password);
 		account_dao.insertAccount(account);
+		request.getRequestDispatcher("views/web/login.jsp").forward(request, response);
 	}
 	public void checkLogin(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
 	{
@@ -53,7 +66,7 @@ public class account_Service
 		{
 			HttpSession session=request.getSession();
 			session.setAttribute("account", account);
-			response.sendRedirect("trang-chu");
+			response.sendRedirect("/trang-chu");
 		}
 		else
 		{

@@ -13,6 +13,7 @@ import Service.account_Service;
 public class account_Controller extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
+	
 	account_Service account_Service=null;
 	public void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException
 	{
@@ -28,7 +29,7 @@ public class account_Controller extends HttpServlet
 		}
 		else if(action.equals("register"))
 		{
-			account_Service=new account_Service();
+			account_Service=new account_Service();	
 			account_Service.insertCustomer(request, response);
 		}
 	}

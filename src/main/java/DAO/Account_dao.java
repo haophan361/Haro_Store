@@ -58,11 +58,11 @@ public class Account_dao implements IAccount
 		try
 		{
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(0, customer.getCusName());
-			pstmt.setString(1, customer.getEmail());
-			pstmt.setString(2, customer.getAddress());
-			pstmt.setString(3, customer.getPhone());
-			pstmt.setString(4, account.getPassword());
+			pstmt.setString(1, customer.getCusName());
+			pstmt.setString(2, customer.getEmail());
+			pstmt.setString(3, customer.getAddress());
+			pstmt.setString(4, customer.getPhone());
+			pstmt.setString(5, account.getPassword());
 			pstmt.executeUpdate();
 			conn.close();
 			return true;

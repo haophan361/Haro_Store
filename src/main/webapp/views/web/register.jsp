@@ -1,90 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css">
-<title>Trang đăng kí</title>
+	<meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css">
+    <title>Trang đăng kí</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/script.js"></script>
+    
 </head>
 <body>
-	<section class="h-100 bg-light">
-	  <div class="container py-5 h-100">
-	    <div class="row d-flex justify-content-center align-items-center h-100">
-	      <div class="col">
-	        <div class="card card-registration my-4">
-	            <div class="col-xl-6 mx-auto">
-	              <div class="card-body p-md-5 text-black">
-	                <h3 class="mb-5 text-uppercase" style="text-align:center">Register</h3>	
-	                				
-					<div data-mdb-input-init class="form-outline mb-4">
-	                  <input type="text" id="name" class="form-control form-control-lg" />
-	                  <label class="form-label" for="name">Họ và tên</label>
-	                </div>
-	                
-	                <div class="row">
-	                
-	                  <div class="col-md-12 mb-4">
-	                    <select data-mdb-select-init>
-	                      <option value="1">Tỉnh/Thành Phố</option>
-	                      <option value="2">Option 1</option>
-	                      <option value="3">Option 2</option>
-	                      <option value="4">Option 3</option>
-	                    </select>
-	                  </div>
-	                  
-	                  <div class="col-md-12 mb-4">
-	                    <select data-mdb-select-init>
-	                      <option value="1">Quận/Huyện</option>
-	                      <option value="2">Option 1</option>
-	                      <option value="3">Option 2</option>
-	                      <option value="4">Option 3</option>
-	                    </select>
-	                  </div>
-	                  
-	                  <div class="col-md-12 mb-4">
-	                    <select data-mdb-select-init>
-	                      <option value="1">Phường/Xã</option>
-	                      <option value="2">Option 1</option>
-	                      <option value="3">Option 2</option>
-	                      <option value="4">Option 3</option>
-	                    </select>
-	                  </div>
-	                  
-                	</div>
-	                
-	                <div data-mdb-input-init class="form-outline mb-4">
-	                  <input type="text" id="address" class="form-control form-control-lg" />
-	                  <label class="form-label" for="address">Số nhà, Tên đường</label>
-	                </div>
-	 
-	                <div data-mdb-input-init class="form-outline mb-4">
-	                  <input type="text" id="phone" class="form-control form-control-lg" />
-	                  <label class="form-label" for="phone">Số điện thoại</label>
-	                </div>
-	
-	                <div data-mdb-input-init class="form-outline mb-4">
-	                  <input type="text" id="email" class="form-control form-control-lg" />
-	                  <label class="form-label" for="email">Email</label>
-	                </div>
-	
-	                <div data-mdb-input-init class="form-outline mb-4">
-	                  <input type="text" id="password" class="form-control form-control-lg" />
-	                  <label class="form-label" for="password">Mật khẩu</label>
-	                </div>
-	
-	                <div class="d-flex justify-content-end pt-3">
-	                  <button type="button" name="action" value="register" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" style="color:white">Submit form</button>
-	                </div>
-	
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	</section>
+	<div class="form-container">
+		<div class="container py-5 h-100">
+			<div class="row d-flex align-items-center justify-content-center h-100">
+    			<div class="col-md-8 col-lg-7 col-xl-6">
+					<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+						class="img-fluid" alt="Phone image">
+    			</div>
+	    		<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+	    			<h1 style="text-align:center">Register</h1>
+	    			<form action="${pageContext.request.contextPath}/trang-dang-ki" method="POST">
+					    <div data-mdb-input-init class="form-outline mb-4">
+					        <input type="text" id="name" name="name" class="form-control form-control-lg" />
+					        <label class="form-label" for="name" style="color:white">Họ và tên</label>
+					    </div>
+					                
+					    <div class="mb-4">
+					        <select data-mdb-select-init class="form-control form-control-lg" id="cities" name="city">
+					            <option value="" selected>Tỉnh/Thành phố</option>
+					        </select>
+					    </div>
+					    
+					    <div class="mb-4">
+					        <select data-mdb-select-init class="form-control form-control-lg" id="districts" name="district">
+					            <option value="" selected>Quận/Huyện</option>
+					        </select>
+					    </div>
+					    
+					    <div class="mb-4">
+					        <select data-mdb-select-init class="form-control form-control-lg" id="wards" name="ward">
+					            <option value="" selected>Phường/Xã</option>
+					        </select>
+					    </div>
+					    
+					    <div data-mdb-input-init class="form-outline mb-4">
+					        <input type="text" id="address" name="houseNo" class="form-control">
+					        <label class="form-label" for="address" style="color:white">Số nhà, Tên đường</label>
+					    </div>
+					
+					    <div data-mdb-input-init class="form-outline mb-4">
+					        <input type="text" id="phone" name="phone" class="form-control" />
+					        <label class="form-label" for="phone" style="color:white">Số điện thoại</label>
+					    </div>
+					
+					    <div data-mdb-input-init class="form-outline mb-4">
+					        <input type="email" id="email" name="email" class="form-control" />
+					        <label class="form-label" for="email" style="color:white">Email</label>
+					    </div>
+					
+					    <div data-mdb-input-init class="form-outline mb-4">
+					        <input type="password" id="password" name="password" class="form-control" />
+					        <label class="form-label" for="password" style="color:white">Mật khẩu</label>
+					    </div>
+					    <button type="submit" name="action" value="register" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">Register</button>
+					    <c:url value="/views/web/register.jsp" var="registerUrl"/>
+					    <p>Not a member? <a href="${loginUrl}">Register</a></p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
 </body>
 </html>
