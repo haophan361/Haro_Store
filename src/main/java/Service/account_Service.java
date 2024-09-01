@@ -40,25 +40,18 @@ public class account_Service
 		String password=request.getParameter("password");
 		account_dao.changePassword(email, password);
 	}
-	public void insertAccount(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
-	{
-		account_dao=new Account_dao();
-		String email=request.getParameter("email");
-		String password=request.getParameter("password");
-		Accounts account=new Accounts(email,password);
-		account_dao.insertAccount(account);
-		request.getRequestDispatcher("views/web/login.jsp").forward(request, response);
-	}
 	public void checkLogin(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
 	{
 		account_dao=new Account_dao();
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 		Accounts account=new Accounts(email,password);
-		if(account_dao.checkLogin(account) != null)
+		Accounts check=account_dao.checkLogin(account);
+		if(check!=null)
 		{
 			HttpSession session=request.getSession();
-			session.setAttribute("account", account);
+			session.setAttribute("account", check);
+			session.setAttribute("role", check.getRole());
 			response.sendRedirect(request.getContextPath()+"/trang-chu");
 		}
 		else

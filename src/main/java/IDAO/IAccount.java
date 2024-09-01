@@ -7,6 +7,5 @@ public interface IAccount
 {
 	public boolean insertCustomer(Customers customer,Accounts account);
 	public boolean changePassword(String email,String password);
-	public boolean insertAccount(Accounts account);
 	public Accounts checkLogin(Accounts account);
 }

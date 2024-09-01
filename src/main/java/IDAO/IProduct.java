@@ -8,6 +8,6 @@ public interface IProduct
 	public boolean deleteProduct(int ID);
 	public List<Products> searchProduct (String keyword);
 	public List<Products> typeProduct(String productType);
-	public List<Products> brandProduct(String productBrand);
 	public List<Products>findAll();
+	public Products findProduct(int ID);
 }

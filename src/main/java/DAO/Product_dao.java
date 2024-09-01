@@ -123,40 +123,7 @@ public class Product_dao implements IProduct
 		{
 			conn=myConn.getConnection();
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(0, productType);
-			ResultSet rs=pstmt.executeQuery();
-			
-			Products product=null;
-			while(rs.next())
-			{
-				product=new Products();
-				product.setProductName(rs.getString("productName"));
-				product.setProductType(rs.getString("productType"));
-				product.setBrand(rs.getString("brand"));
-				product.setCost(rs.getDouble("cost"));
-				product.setQuantity(rs.getInt("quantity"));
-				product.setImage_url(rs.getString("image_url"));
-				pro.add(product);
-			}
-			conn.close();
-			return pro;
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-	}
-	@Override
-	public List<Products> brandProduct(String productBrand) 
-	{
-		String query="CALL brandProduct(?)";
-		pro=new ArrayList<Products>();
-		try
-		{
-			conn=myConn.getConnection();
-			pstmt=conn.prepareStatement(query);
-			pstmt.setString(0, productBrand);
+			pstmt.setString(1, productType);
 			ResultSet rs=pstmt.executeQuery();
 			
 			Products product=null;
@@ -206,6 +173,38 @@ public class Product_dao implements IProduct
 			}
 			conn.close();
 			return pro;
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public Products findProduct(int ID)
+	{
+		String query="CALL findProduct(?)";
+		try
+		{
+			conn=myConn.getConnection();
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1,"ID");
+			ResultSet rs=pstmt.executeQuery();
+			
+			Products product=null;
+			while(rs.next())
+			{
+				product=new Products();
+				product.setID(rs.getInt("ID"));
+				product.setProductName(rs.getString("productName"));
+				product.setProductType(rs.getString("productType"));
+				product.setBrand(rs.getString("brand"));
+				product.setCost(rs.getDouble("cost"));
+				product.setQuantity(rs.getInt("quantity"));
+				product.setImage_url(rs.getString("image_url"));
+			}
+			conn.close();
+			return product;
 		}
 		catch(SQLException e)
 		{

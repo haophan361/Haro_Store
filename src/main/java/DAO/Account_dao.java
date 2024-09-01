@@ -12,7 +12,6 @@ public class Account_dao implements IAccount
 	myConnection myConn=new myConnection();
 	Connection conn=myConn.getConnection();
 	PreparedStatement pstmt=null;
-	Accounts account=null;
 	@Override
 	public boolean changePassword(String email, String password) 
 	{
@@ -22,25 +21,6 @@ public class Account_dao implements IAccount
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(0, email);
 			pstmt.setString(1,password);
-			pstmt.executeUpdate();
-			conn.close();
-			return true;
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			return false;
-		}
-	}
-	@Override
-	public boolean insertAccount(Accounts account) 
-	{
-		String query="CALL insertAccount_Admin(?,?)";
-		try
-		{
-			pstmt=conn.prepareStatement(query);
-			pstmt.setString(0, account.getEmail());
-			pstmt.setString(1,account.getPassword());
 			pstmt.executeUpdate();
 			conn.close();
 			return true;
@@ -75,6 +55,7 @@ public class Account_dao implements IAccount
 	}
 	public Accounts checkLogin(Accounts account)
 	{
+		Accounts check=null;
 		String query="CALL checkLogin(?,?)";
 		try
 		{
@@ -84,12 +65,14 @@ public class Account_dao implements IAccount
 			ResultSet rs=pstmt.executeQuery();
 			if(rs.next())
 			{
-				account=new Accounts();
-				account.setEmail(rs.getString("email"));
-				account.setPassword(rs.getString("password"));
+				check=new Accounts();
+				check.setEmail(rs.getString("email"));
+				check.setPassword(rs.getString("password"));
+				check.setRole(rs.getString("role"));
 			}
+			rs.close();
 			conn.close();
-			return account;
+			return check;
 		}
 		catch(SQLException e)
 		{
