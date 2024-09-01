@@ -88,6 +88,7 @@ public class Account_dao implements IAccount
 				account.setEmail(rs.getString("email"));
 				account.setPassword(rs.getString("password"));
 			}
+			conn.close();
 			return account;
 		}
 		catch(SQLException e)

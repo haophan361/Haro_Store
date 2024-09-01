@@ -1,15 +1,16 @@
 package Controller;
-
 import javax.servlet.http.HttpServlet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.Accounts;
 import Service.product_Service;
 
 import java.io.IOException;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 @WebServlet(urlPatterns = {"/trang-chu"})
 public class product_Controller extends HttpServlet
@@ -19,6 +20,12 @@ public class product_Controller extends HttpServlet
 	protected void doGet (HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException 
 	{
 		productService=new product_Service();
+		Accounts user = (Accounts) request.getSession().getAttribute("account");
+        if(user == null)
+        {   
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/view/login.jsp");
+            dispatcher.forward(request, response);
+        }
 		String action=request.getParameter("action");
 		if(action==null)
 		{
@@ -31,22 +38,14 @@ public class product_Controller extends HttpServlet
 				productService.selectProduct(request, response);
 				break;
 			}
-			case "insertPro":
+			case"listPro":
 			{
-				break;
-			}
-			case "updatePro":
-			{
-				break;
-			}
-			case "deletePro":
-			{
+				productService.selectAllProduct(request, response);
 				break;
 			}
 			default:
 			{
-				productService.selectAllProduct(request, response);
-				break;
+				doPost(request,response);
 			}
 		}
 	}

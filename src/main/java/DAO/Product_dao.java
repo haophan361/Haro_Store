@@ -45,13 +45,13 @@ public class Product_dao implements IProduct
 		{
 			conn=myConn.getConnection();
 			pstmt= conn.prepareStatement(query);
-			pstmt.setInt(0, product.getID());
-			pstmt.setString(1,product.getProductName());
-			pstmt.setString(2,product.getProductType());
-			pstmt.setString(3,product.getBrand());
-			pstmt.setDouble(4, product.getCost());
-			pstmt.setInt(5, product.getQuantity());
-			pstmt.setString(6,product.getImage_url());
+			pstmt.setInt(1, product.getID());
+			pstmt.setString(2,product.getProductName());
+			pstmt.setString(3,product.getProductType());
+			pstmt.setString(4,product.getBrand());
+			pstmt.setDouble(5, product.getCost());
+			pstmt.setInt(6, product.getQuantity());
+			pstmt.setString(7,product.getImage_url());
 			pstmt.executeUpdate();
 			conn.close();
 			return true;
@@ -90,7 +90,7 @@ public class Product_dao implements IProduct
 		{
 			conn=myConn.getConnection();
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(0, keyword);
+			pstmt.setString(1, keyword);
 			ResultSet rs=pstmt.executeQuery();
 			
 			Products product=null;
@@ -213,5 +213,4 @@ public class Product_dao implements IProduct
 			return null;
 		}
 	}
-	
 }

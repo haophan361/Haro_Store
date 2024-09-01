@@ -20,14 +20,14 @@
       			</div>
       			<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
       				<h1 style="text-align:center">Login</h1>
-     				<form action="${pageContext.request.contextPath}/trang-chu" method="POST">
+     				<form action="${pageContext.request.contextPath}/trang-dang-nhap" method="POST">
 						<div data-mdb-input-init class="form-outline mb-4">
-							<input type="email" id="email" class="form-control"/>
+							<input type="email" id="email" name="email" class="form-control"/>
 							<label class="form-label" for="email" style="color:white">Email</label>
 						</div>
 			
 						<div data-mdb-input-init class="form-outline mb-4">
-							<input type="password" id="password" class="form-control" />
+							<input type="password" id="password" name="password" class="form-control" />
 							<label class="form-label" for="password" style="color:white">Password</label>
 						</div>
 				  		<button type="submit" name="action" value="login" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">Sign in</button>

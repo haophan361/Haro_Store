@@ -13,24 +13,24 @@ import Model.Products;
 public class product_Service extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	private Product_dao product_dao=null;
-	List<Products> products;
+	public Product_dao product_dao=null;
+	
 	public void selectAllProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
 	{
 		product_dao=new Product_dao();
-		products=product_dao.findAll();
+		List<Products> products=product_dao.findAll();
         request.setAttribute("products", products);
-        request.setAttribute("title", "Products");
+        request.setAttribute("title", "listProducts");
 		RequestDispatcher requestDispatcher=request.getRequestDispatcher("views/web/home.jsp");
 		requestDispatcher.forward(request, response);
 	}
 	public void selectProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
 	{
 		product_dao=new Product_dao();
-		String keyword=request.getParameter("query");
-		products=product_dao.searchProduct(keyword);
+		String keyword=request.getParameter("keyword");
+		List<Products> products=product_dao.searchProduct(keyword);
 		request.setAttribute("products", products);
-		request.setAttribute("title", "search");
+		request.setAttribute("title", "search"+keyword);
 		RequestDispatcher requestdispatcher=request.getRequestDispatcher("views/web/home.jsp");
 		requestdispatcher.forward(request,response);
 	}
