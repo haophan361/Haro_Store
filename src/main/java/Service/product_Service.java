@@ -96,7 +96,7 @@ public class product_Service extends HttpServlet
 		String image_url=request.getParameter("image_url");
 		Products product=new Products(ID,name,type,brand,cost,quantity,image_url);
 		product_dao.updateProduct(product);
-		RequestDispatcher requestdispatcher=request.getRequestDispatcher("views/admin/home.jsp");
+		RequestDispatcher requestdispatcher=request.getRequestDispatcher("trang-chu?action=listPro");
 		requestdispatcher.forward(request, response);
 	}
 	public void deleteProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
@@ -104,7 +104,7 @@ public class product_Service extends HttpServlet
 		product_dao=new Product_dao();
 		int ID=Integer.parseInt(request.getParameter("ID"));
 		product_dao.deleteProduct(ID);
-		RequestDispatcher requestdispatcher=request.getRequestDispatcher("views/admin/addProduct.jsp");
+		RequestDispatcher requestdispatcher=request.getRequestDispatcher("trang-chu?action=listPro");
 		requestdispatcher.forward(request, response);
 	}
 }

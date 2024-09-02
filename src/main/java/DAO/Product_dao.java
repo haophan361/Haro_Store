@@ -97,6 +97,7 @@ public class Product_dao implements IProduct
 			while(rs.next())
 			{
 				product=new Products();
+				product.setID(rs.getInt("ID"));
 				product.setProductName(rs.getString("productName"));
 				product.setProductType(rs.getString("productType"));
 				product.setBrand(rs.getString("brand"));
@@ -130,6 +131,7 @@ public class Product_dao implements IProduct
 			while(rs.next())
 			{
 				product=new Products();
+				product.setID(rs.getInt("ID"));
 				product.setProductName(rs.getString("productName"));
 				product.setProductType(rs.getString("productType"));
 				product.setBrand(rs.getString("brand"));

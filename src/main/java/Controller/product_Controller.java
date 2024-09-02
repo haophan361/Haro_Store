@@ -35,7 +35,7 @@ public class product_Controller extends HttpServlet
     		{
     			action="listPro";
     		}
-        	if(role.equals("Khách Hàng"))
+        	if(role.equals("Khách hàng"))
         	{
         		switch (action)
         		{

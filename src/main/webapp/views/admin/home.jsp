@@ -73,10 +73,17 @@
 						        			<i style="width:53.333336%;"></i>
 					            			<b>Còn <%=product.getQuantity()%> </b>
    										</div>
+   										
    								</div>
    								<div class="card footer p-4 pt-0 border-top-0 gb-transparent">
-   										<button type="button" name="action" value="editForm" class="btn btn-primary">Update</button>
-   										<button type="button" class="btn btn-danger">Delete</button>
+   									<form action="trang-chu" method="get">
+								        <input type="hidden" name="ID" value="<%= product.getID() %>">
+								        <button type="submit" name="action" value="editForm" class="btn btn-primary">Update</button>
+								    </form>
+								    <form action="trang-chu" method="post">
+								        <input type="hidden" name="ID" value="<%= product.getID() %>">
+								        <button type="submit" name="action" value="deletePro" class="btn btn-danger">Delete</button>
+								    </form>
    								</div>
    							</div>
    					<%
