@@ -190,7 +190,7 @@ public class Product_dao implements IProduct
 		{
 			conn=myConn.getConnection();
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1,"ID");
+			pstmt.setInt(1,ID);
 			ResultSet rs=pstmt.executeQuery();
 			
 			Products product=null;

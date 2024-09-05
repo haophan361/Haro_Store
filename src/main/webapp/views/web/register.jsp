@@ -30,7 +30,7 @@
 					                
 					    <div class="mb-4">
 					        <select data-mdb-select-init class="form-control form-control-lg" id="cities" required>
-					            <option value=""  selected>Tỉnh/Thành phố</option>
+					            <option value="" selected>Tỉnh/Thành phố</option>
 					        </select>
 					        <input type="hidden" id="cityName" name="cityName">
 					    </div>

@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function()
     var cities = document.getElementById("cities");
     var districts = document.getElementById("districts");
     var wards = document.getElementById("wards");
-    
-
     var Parameter = 
     {
       url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json", 
@@ -23,15 +21,13 @@ document.addEventListener("DOMContentLoaded", function()
   		{
     		cities.options[cities.options.length] = new Option(c.Name, c.Id);
   		}
-
 		cities.onchange = function () 
   		{
     		districts.length = 1;
     		wards.length = 1;
     		document.getElementById("cityName").value = cities.options[cities.selectedIndex].text;
-		    if (this.value != "")
+		    if (this.value !== "")
 		    {
-
 				const result = data.filter(n => n.Id === this.value);
 				
 		      	for (const d of result[0].Districts) 
@@ -46,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function()
 	        wards.length = 1;
 	        document.getElementById("districtName").value = districts.options[districts.selectedIndex].text;
 	        const dataCity = data.filter((n) => n.Id === cities.value);
-	        if (this.value != "") 
+	        if (this.value !== "")
 	        {
 				const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
 	          

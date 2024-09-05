@@ -7,7 +7,10 @@ public class Customers
 	private String email;
 	private String address;
 	private String phone;
-	
+	public Customers ()
+	{
+
+	}
 	public Customers(int iD, String cusName, String address, String phone) 
 	{
 		super();

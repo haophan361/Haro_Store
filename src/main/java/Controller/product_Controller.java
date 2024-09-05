@@ -15,12 +15,14 @@ import javax.servlet.ServletException;
 @WebServlet(urlPatterns = {"/trang-chu"})
 public class product_Controller extends HttpServlet
 {
-	private static final long serialVersionUID=2686801510274002166L;
-	product_Service productService=null;
-	protected void doGet (HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException 
+	product_Service productService;
+	public void init()
 	{
 		productService=new product_Service();
-		String role="";
+	}
+	protected void doGet (HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException 
+	{
+		String role;
 		Accounts account = (Accounts) request.getSession().getAttribute("account");
         if(account == null)
         {   
@@ -35,7 +37,7 @@ public class product_Controller extends HttpServlet
     		{
     			action="listPro";
     		}
-        	if(role.equals("Khách hàng"))
+        	if(role.equals("Customer"))
         	{
         		switch (action)
         		{
@@ -89,7 +91,6 @@ public class product_Controller extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException 
 	{
-		productService=new product_Service();
 		Accounts account = (Accounts) request.getSession().getAttribute("account");
 		String role=account.getRole();
 		

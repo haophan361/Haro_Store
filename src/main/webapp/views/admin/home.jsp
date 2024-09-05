@@ -4,6 +4,9 @@
 <%@ page import="Model.Products" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +18,15 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="${pageContext.request.contextPath}/static/home_script.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+	<script src="${pageContext.request.contextPath}/static/home_script.js"></script>
     <title>Haro</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container px-3 px-lg-5">
-            <a class="navbar-brand" href="#!">Haro</a>
+			<c:url value="/views/admin/home.jsp" var="homeUrl"/>
+            <a class="navbar-brand" href="${homeUrl}">Haro</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -52,48 +57,41 @@
     <section>
     	<div class="py-5">
     		<div class="container px-4 px-lg-5 mt-5">
-   				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4" style="row-gap: 120px;">
-   					<% 
-			        List<Products> products = (List<Products>) request.getAttribute("products");
-    			 	if(products!=null && !products.isEmpty())
-    			 	{
-				        for (Products product : products) 
-				        { 
-    				%>	
-		    				<div class="col mb-5">
-   								<div class="card h-100">
-   									<img src="<%= product.getImage_url() %>" width=237 height=150>
-										<div  style="margin-left: 20px;">
-											<h5 class="fw-bolder"><%= product.getProductName()%></h5>
-											<%NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
-   										String formattedCost = formatter.format(product.getCost()); %>
-											<span><%= formattedCost %></span>
+   				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4" style="row-gap: 20px;">
+					<c:if test="${not empty products}">
+						<c:forEach var="p" items="${products}">
+							<div class="col mb-5">
+								<div class="card h-100">
+									<img src="${p.image_url}" alt="${p.productName}" width="237" height="150">
+									<div style="margin-left: 20px;">
+										<h5 class="fw-bolder">${p.productName}</h5>
+										<span>
+                                        <fmt:formatNumber value="${p.cost}" type="currency" currencySymbol="₫" groupingUsed="true" />
+                                    </span>
+									</div>
+									<div align="center">
+										<i style="width:53.33%;"></i>
+										<b>Còn ${p.quantity}</b>
+									</div>
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div style="display: flex; justify-content:center; gap:10px;">
+											<form action="trang-chu" method="get">
+												<input type="hidden" name="ID" value="${p.ID}">
+												<button type="submit" name="action" value="editForm" class="btn btn-primary">Update</button>
+											</form>
+											<form action="trang-chu" method="post">
+												<input type="hidden" name="ID" value="${p.ID}">
+												<button type="submit" name="action" value="deletePro" class="btn btn-danger">Delete</button>
+											</form>
 										</div>
-										<div align="center">
-						        			<i style="width:53.333336%;"></i>
-					            			<b>Còn <%=product.getQuantity()%> </b>
-   										</div>
-   										
-   								</div>
-   								<div class="card footer p-4 pt-0 border-top-0 gb-transparent">
-   									<form action="trang-chu" method="get">
-								        <input type="hidden" name="ID" value="<%= product.getID() %>">
-								        <button type="submit" name="action" value="editForm" class="btn btn-primary">Update</button>
-								    </form>
-								    <form action="trang-chu" method="post">
-								        <input type="hidden" name="ID" value="<%= product.getID() %>">
-								        <button type="submit" name="action" value="deletePro" class="btn btn-danger">Delete</button>
-								    </form>
-   								</div>
-   							</div>
-   					<%
-        				}
-    				} 
-    			 	else 
-    			 	{
-					%>
-        				<p>Không có sản phẩm nào được tìm thấy.</p>
-    				<%}%>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<c:if test="${empty products}">
+						<p>Không có sản phẩm nào được tìm thấy.</p>
+					</c:if>
    				</div>
     		</div>
     	</div>

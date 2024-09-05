@@ -20,39 +20,44 @@
 						class="img-fluid" alt="Phone image">
     			</div>
 	    		<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-	    			<h1 style="text-align:center">Register</h1>
+	    			<h1 style="text-align:center">Chỉnh sửa sản phẩm</h1>
 	    			<form action="${pageContext.request.contextPath}/trang-chu" method="POST" onsubmit="return validateForm()">
+						<input type="hidden" id="ID" name="ID" value="${ID}"/>
 					    <div data-mdb-input-init class="form-outline mb-4">
-					        <input type="text" id="name" name="name" class="form-control form-control-lg" required />
+					        <input type="text" id="name" name="name" value="${name}" class="form-control form-control-lg" required />
 					        <label class="form-label" for="name" style="color:white">Tên sản phẩm</label>
 					    </div>
 					    
 					    <div data-mdb-input-init class="form-outline mb-4">
-					        <input type="text" id="type" name="type" class="form-control form-control-lg" required />
+					        <input type="text" id="type" name="type" value="${type}" class="form-control form-control-lg" required />
 					        <label class="form-label" for="type" style="color:white">Loại sản phẩm</label>
 					    </div>
 					                
 					    <div data-mdb-input-init class="form-outline mb-4">
-					        <input type="text" id="brand" name="brand" class="form-control" required/>
+					        <input type="text" id="brand" name="brand" value="${brand}" class="form-control" required/>
 					        <label class="form-label" for="brand" style="color:white">Hãng</label>
 					    </div>
 					
 					    <div data-mdb-input-init class="form-outline mb-4">
-					        <input type="text" id="cost" name="cost" class="form-control" required>
+					        <input type="text" id="cost" name="cost" value="${cost}" class="form-control" required>
 					        <label class="form-label" for="cost" style="color:white">Giá</label>
 					    </div>
 					
 					    <div data-mdb-input-init class="form-outline mb-4">
-					        <input type="text" id="quantity" name="quantity" class="form-control" required />
+					        <input type="text" id="quantity" name="quantity" value="${quantity}" class="form-control" required />
 					        <label class="form-label" for="quantity" style="color:white">Số lượng</label>
 					    </div>
 					
 					    <div data-mdb-input-init class="form-outline mb-4">
-					        <input type="file" id="image_url" name="image_url" class="form-control" required />
-					        <label class="form-label" for="image_url" style="color:white">Image</label>
+							<label class="form-label" for="imageCode" style="color:white">Image</label>
+							<input <c:if test="${ID == null}">required</c:if>
+					        type="file" id="imageCode" name="imageCode" value="${image_url}" class="form-control" accept="image/*"
+								   onchange="document.getElementById('blah').src=window.url.createObjectURL(this.file[0])" />
+					        <br>
+							<img id="blah" width="200",height =250, src="/static/Image/${image_url}">
 					    </div>
-					    
-					    <button type="submit" name="action" value="insertPro" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">Submit</button>
+
+					    <button type="submit" name="action" value="${ID == null ? 'insertPro' : 'updatePro'}"  data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">Submit</button>
 					</form>
 				</div>
 			</div>

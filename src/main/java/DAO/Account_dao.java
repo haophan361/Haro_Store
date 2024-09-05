@@ -19,8 +19,8 @@ public class Account_dao implements IAccount
 		try
 		{
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(0, email);
-			pstmt.setString(1,password);
+			pstmt.setString(1, email);
+			pstmt.setString(2,password);
 			pstmt.executeUpdate();
 			conn.close();
 			return true;
@@ -75,6 +75,28 @@ public class Account_dao implements IAccount
 			return check;
 		}
 		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public String getPassword(String email)
+	{
+		String query="CALL getPassword(?)";
+		try
+		{
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			ResultSet rs=pstmt.executeQuery();
+			String password="";
+			while (rs.next())
+			{
+				password=rs.getString("password");
+			}
+			conn.close();
+			return password;
+		}
+		catch (SQLException e)
 		{
 			e.printStackTrace();
 			return null;
