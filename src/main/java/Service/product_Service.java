@@ -4,17 +4,16 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.servlet.annotation.MultipartConfig;
-
 import DAO.Product_dao;
 import Model.Products;
 @MultipartConfig
-public class product_Service extends HttpServlet
+public class product_Service
 {
 	Product_dao product_dao;
 	public product_Service()
@@ -26,7 +25,6 @@ public class product_Service extends HttpServlet
 	{
 		List<Products> products=product_dao.findAll();
         request.setAttribute("products", products);
-        request.setAttribute("title", "listProducts");
         if(role.equals("Customer"))
         {
         	RequestDispatcher requestDispatcher=request.getRequestDispatcher("views/web/home.jsp");
@@ -73,7 +71,7 @@ public class product_Service extends HttpServlet
 		RequestDispatcher requestdispatcher=request.getRequestDispatcher("views/admin/addProduct.jsp");
 		requestdispatcher.forward(request, response);
 	}
-	public void insertProduct(HttpServletRequest request,HttpServletResponse response) throws IOException
+	public void insertProduct(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws  ServletException,IOException
 	{
 		String name=request.getParameter("name");
 		String type=request.getParameter("type");
@@ -81,22 +79,22 @@ public class product_Service extends HttpServlet
 		double cost=Double.parseDouble(request.getParameter("cost"));
 		int quantity=Integer.parseInt(request.getParameter("quantity"));
 
-		Part filePart=request.getpar
-		String image_url=filePart.getSubmittedFileName();
-		String uploadPath=getServletContext().getRealPath("/static/Image/");
+		Part filePart=request.getPart("imageCode");
+		String imageFileName =filePart.getSubmittedFileName();
+		String uploadPath = context.getRealPath("/static/Image/");
 		File uploadDir=new File(uploadPath);
 		if(!uploadDir.exists())
 		{
 			uploadDir.mkdirs();
 		}
-		//String filePath=uploadPath+File.separator+image_url;
-		//filePart.write(filePath);
+		String filePath=uploadPath+File.separator+imageFileName ;
+		filePart.write(filePath);
 
-		Products product=new Products(name,type,brand,cost,quantity,image_url);
+		Products product=new Products(name,type,brand,cost,quantity,imageFileName);
 		product_dao.insertProduct(product);
 		response.sendRedirect("trang-chu?action=listPro");
 	}
-	public void updateProduct(HttpServletRequest request,HttpServletResponse response) throws IOException
+	public void updateProduct(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
 	{
 		int ID=Integer.parseInt(request.getParameter("ID"));
 		String name=request.getParameter("name");
@@ -104,8 +102,10 @@ public class product_Service extends HttpServlet
 		String brand=request.getParameter("brand");
 		double cost=Double.parseDouble(request.getParameter("cost"));
 		int quantity=Integer.parseInt(request.getParameter("quantity"));
+
 		Part filePart=request.getPart("imageCode");
 		String image_url=filePart.getSubmittedFileName();
+
 		Products product=new Products(ID,name,type,brand,cost,quantity,image_url);
 		product_dao.updateProduct(product);
 		response.sendRedirect("trang-chu?action=listPro");

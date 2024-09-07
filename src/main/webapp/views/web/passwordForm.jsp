@@ -28,8 +28,9 @@
                         <input type="hidden" id="password" name="password" value="${password}">
                         <input type="password" id="oldPassword" name="oldPassword" class="form-control" required/>
                         <label class="form-label" for="oldPassword" style="color:white">Nhập mật khẩu cũ</label>
-                        <c:if test="${not empty errorMessage and errorMessage == 'Mật khẩu cũ không chính xác!'}">
-                            <small style="color: red;">${errorMessage}</small>
+                        <c:if test="${not empty wrongPassWord}">
+                            <small style="color: red;">${wrongPassWord}</small>
+                            <c:remove var="wrongPassWord" scope="request" />
                         </c:if>
                     </div>
 
@@ -41,8 +42,9 @@
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required />
                         <label class="form-label" for="confirmPassword" style="color:white">Nhập lại mật khẩu</label>
-                        <c:if test="${not empty errorMessage and errorMessage == 'Mật khẩu mới không khớp!'}">
-                            <small style="color: red;">${errorMessage}</small>
+                        <c:if test="${not empty wrongConfirmPassword}">
+                            <small style="color: red;">${wrongConfirmPassword}</small>
+                            <c:remove var="wrongConfirmPassword" scope="request" />
                         </c:if>
                     </div>
 

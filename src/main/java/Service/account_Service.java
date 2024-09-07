@@ -26,7 +26,7 @@ public class account_Service
 		String district=request.getParameter("districtName");
 		String ward=request.getParameter("wardName");
 		String houseNo=request.getParameter("houseNo");
-		String address=city+", "+district+", "+ward+", "+houseNo;
+		String address=city+","+district+","+ward+","+houseNo;
 		String password=request.getParameter("password");
 		String phone=request.getParameter("phone");
 		Customers customer=new Customers(cusName,email,address,phone);
@@ -63,14 +63,12 @@ public class account_Service
 
 	public void passwordForm(HttpServletRequest request, HttpServletResponse response,String email) throws ServletException,IOException
 	{
-		account_dao=new Account_dao();
-		String password=account_dao.getPassword(email);
-		request.setAttribute("password", password);
 		request.getRequestDispatcher("views/web/passwordForm.jsp").forward(request, response);
 	}
 	public void changePassword(HttpServletRequest request, HttpServletResponse response,String email) throws ServletException,IOException
 	{
 		account_dao=new Account_dao();
+		getPassword(request,response,email);
 		String password=request.getParameter("password");
 		String oldPassword=request.getParameter("oldPassword");
 		String newPassword=request.getParameter("newPassword");
@@ -84,14 +82,22 @@ public class account_Service
 			}
 			else
 			{
-				request.setAttribute("errorMessage","Mật khẩu nhập không khớp");
+				request.setAttribute("wrongConfirmPassword","Mật khẩu nhập không khớp");
 				request.getRequestDispatcher("views/web/passwordForm.jsp").forward(request, response);
+				request.removeAttribute("wrongConfirmPassword");
 			}
 		}
 		else
 		{
-			request.setAttribute("errorMessage","Mật khẩu cũ không chính xác");
+			request.setAttribute("wrongPassWord","Mật khẩu cũ không chính xác");
 			request.getRequestDispatcher("views/web/passwordForm.jsp").forward(request, response);
+			request.removeAttribute("wrongPassWord");
 		}
+	}
+	public void getPassword(HttpServletRequest request,HttpServletResponse response,String email) throws ServletException,IOException
+	{
+		account_dao=new Account_dao();
+		String password=account_dao.getPassword(email);
+		request.setAttribute("password", password);
 	}
 }

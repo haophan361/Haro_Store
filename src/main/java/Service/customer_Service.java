@@ -35,15 +35,16 @@ public class customer_Service
     public void updateCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         customer_dao= new Customer_dao();
-        String id=request.getParameter("ID");
+        int ID=Integer.parseInt(request.getParameter("ID"));
         String name=request.getParameter("name");
-        String city=request.getParameter("city");
-        String district=request.getParameter("district");
-        String ward=request.getParameter("ward");
+        String city=request.getParameter("cityName");
+        String district=request.getParameter("districtName");
+        String ward=request.getParameter("wardName");
         String houseNo=request.getParameter("houseNo");
-        String address=city+", "+district+", "+ward+", "+houseNo;
+        String address=city+","+district+","+ward+","+houseNo;
         String phone=request.getParameter("phone");
-
-
+        Customers customer=new Customers(ID,name,address,phone);
+        customer_dao.updateCustomer(customer);
+        response.sendRedirect("trang-chu?action=listPro");
     }
 }

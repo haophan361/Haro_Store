@@ -311,10 +311,10 @@ CREATE PROCEDURE updateCustomer(
 BEGIN
 	UPDATE customers
     SET
-		_name=cusName,
-        _address=address,
-        _phone=phone
-	WHERE _ID=ID;
+		cusName=_name,
+        address=_address,
+        phone=_phone
+	WHERE ID=_ID;
 END $$
 DELIMITER ;
 
@@ -517,7 +517,7 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE checkPassword(
+CREATE PROCEDURE getPassword(
 	IN _email VARCHAR(200)
 )
 BEGIN

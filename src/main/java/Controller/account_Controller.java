@@ -23,6 +23,10 @@ public class account_Controller extends HttpServlet
 	{
 		HttpSession session=request.getSession();
 		String action=request.getParameter("action");
+		if(action==null)
+		{
+			action="getPassword";
+		}
 		if(session!=null)
 		{
 			Accounts account = (Accounts) session.getAttribute("account");

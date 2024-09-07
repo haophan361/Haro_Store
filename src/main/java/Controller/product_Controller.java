@@ -8,11 +8,12 @@ import Model.Accounts;
 import Service.product_Service;
 
 import java.io.IOException;
-
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 @WebServlet(urlPatterns = {"/trang-chu"})
+@MultipartConfig
 public class product_Controller extends HttpServlet
 {
 	product_Service productService;
@@ -103,7 +104,7 @@ public class product_Controller extends HttpServlet
 		{
 			case "insertPro":
 			{
-				productService.insertProduct(request, response);
+				productService.insertProduct(request, response,getServletContext());
 				break;
 			}
 			case "updatePro":

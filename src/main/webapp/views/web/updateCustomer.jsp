@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                 <h1 style="text-align:center">Register</h1>
-                <form action="${pageContext.request.contextPath}/trang-dang-ki" method="POST" onsubmit="return validateForm()">
+                <form action="${pageContext.request.contextPath}/nguoi-dung?action=updateCustomer" method="POST" onsubmit="return validateForm()">
 
                     <div data-mdb-input-init class="form-outline mb-4">
                         <input type="hidden" id="ID" name="ID" value="${ID}">

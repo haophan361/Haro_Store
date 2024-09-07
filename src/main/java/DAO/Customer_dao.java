@@ -14,16 +14,20 @@ public class Customer_dao implements ICustomer
     Connection conn=myConn.getConnection();
     PreparedStatement pstmt=null;
     @Override
-    public boolean updateCustomer(int ID, String cusName, String address, String phone)
+    public boolean updateCustomer(Customers customer)
     {
         String query="CALL updateCustomer(?,?,?,?)";
         try
         {
             pstmt=conn.prepareStatement(query);
-            pstmt.setInt(1, ID);
-            pstmt.setString(2, cusName);
-            pstmt.setString(3, address);
-            pstmt.setString(4, phone);
+            int ID=customer.getID();
+            String cusName=customer.getCusName();
+            String address=customer.getAddress();
+            String phone=customer.getPhone();
+            pstmt.setInt(1, customer.getID());
+            pstmt.setString(2, customer.getCusName());
+            pstmt.setString(3, customer.getAddress());
+            pstmt.setString(4, customer.getPhone());
             pstmt.executeUpdate();
             conn.close();
             return true;
